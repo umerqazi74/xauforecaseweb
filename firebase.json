@@ -1,0 +1,34 @@
+{
+  "dataconnect": {
+    "source": "dataconnect"
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "xauforecasting",
+          "appId": "1:903200174736:android:786cfe2280175a7a1cde15",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "xauforecasting",
+          "configurations": {
+            "android": "1:903200174736:android:786cfe2280175a7a1cde15",
+            "ios": "1:903200174736:ios:89302e14aabb8ea31cde15",
+            "web": "1:903200174736:web:bfc8220bff0b4c761cde15"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
