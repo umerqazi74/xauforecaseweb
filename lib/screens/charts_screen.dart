@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _loadData() async {
-    // await fetchDataAndUploadToFirestore(); // First, fetch and upload data to Firestore
+    await fetchDataAndUploadToFirestore(); // First, fetch and upload data to Firestore
     data = await getDataFromFirestore();   // Then, retrieve data from Firestore
     setState(() {});                       // Refresh UI with the new data
   }

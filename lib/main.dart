@@ -1,14 +1,283 @@
-import 'dart:convert';
-
-import 'package:firebase_core/firebase_core.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
-import 'package:xau_forecaste/screens/charts_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase_options.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const XAUPredictionApp());
+}
+
+class XAUPredictionApp extends StatelessWidget {
+  const XAUPredictionApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: PredictionHome(),
+    );
+  }
+}
+
+class PredictionHome extends StatefulWidget {
+  const PredictionHome({super.key});
+
+  @override
+  _PredictionHomeState createState() => _PredictionHomeState();
+}
+
+class _PredictionHomeState extends State<PredictionHome> {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    uploadDataToFirestore();
+  }
+
+  Future<void> uploadDataToFirestore() async {
+    try {
+      // Fetch data from APIs
+      final hourlyResponse = await http.get(Uri.parse('http://127.0.0.1:5000/predict-xau/hourly'));
+      final dailyResponse = await http.get(Uri.parse('http://127.0.0.1:5000/predict-xau/daily'));
+
+      if (hourlyResponse.statusCode == 200 && dailyResponse.statusCode == 200) {
+        final hourlyData = json.decode(hourlyResponse.body)['predicted'];
+        final dailyData = json.decode(dailyResponse.body)['predicted'];
+
+        final now = DateTime.now();
+
+        // Format timestamps
+        final hourlyTimestamps = List.generate(24, (index) => DateFormat('HH:00').format(now.add(Duration(hours: index))));
+        final dailyTimestamps = List.generate(dailyData.length, (index) => DateFormat('dd').format(now.add(Duration(days: index))));
+
+        // Upload hourly predictions
+        await firestore.collection("hourly_predictions").doc("latest").set({
+          "last_updated": now.toIso8601String(),
+          "timestamps": hourlyTimestamps,
+          "predictions": hourlyData,
+        });
+
+        // Upload daily predictions
+        await firestore.collection("daily_predictions").doc("latest").set({
+          "last_updated": now.toIso8601String(),
+          "timestamps": dailyTimestamps,
+          "predictions": dailyData,
+        });
+
+        print("Data uploaded to Firestore successfully!");
+      } else {
+        print("Error fetching data.");
+      }
+    } catch (e) {
+      print("Error uploading to Firestore: $e");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("XAU Predictions"),
+          bottom: const TabBar(
+            tabs: [
+              Tab(text: "Daily"),
+              Tab(text: "Next 24 Hours"),
+            ],
+          ),
+        ),
+        body: const TabBarView(
+          children: [
+            PredictionTab(collection: "daily_predictions", title: "Daily Prediction"),
+            PredictionTab(collection: "hourly_predictions", title: "Next 24 Hours"),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PredictionTab extends StatelessWidget {
+  final String collection;
+  final String title;
+
+  const PredictionTab({super.key, required this.collection, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: firestore.collection(collection).doc("latest").get(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasData && snapshot.data!.exists) {
+          final data = snapshot.data!.data() as Map<String, dynamic>;
+          final lastUpdated = data['last_updated'];
+          final timestamps = List<String>.from(data['timestamps']);
+          final predictions = List<double>.from(data['predictions']);
+
+          // Prepare spots for FlChart
+          final spots = List.generate(predictions.length, (index) {
+            return FlSpot(index.toDouble(), predictions[index]);
+          });
+
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: Theme.of(context).textTheme.headlineSmall),
+                Text("Last updated: ${DateFormat.yMMMEd().add_Hms().format(DateTime.parse(lastUpdated))}"),
+                Container(
+                  height: 300,
+                  padding: const EdgeInsets.all(16.0),
+                  child: LineChart(
+                    LineChartData(
+                      titlesData: FlTitlesData(
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 50, // Adjust to fit larger numbers
+                            getTitlesWidget: (value, meta) {
+                              return SideTitleWidget(
+                                axisSide: meta.axisSide,
+                                child: Text(
+                                  value.toStringAsFixed(2), // Format with 2 decimal places
+                                  style: const TextStyle(fontSize: 10),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 50, // Adjust to fit larger numbers
+                            getTitlesWidget: (value, meta) {
+                              return SideTitleWidget(
+                                axisSide: meta.axisSide,
+                                child: Text(
+                                  value.toStringAsFixed(2), // Format with 2 decimal places
+                                  style: const TextStyle(fontSize: 10),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: (value, meta) {
+                              // Convert `value` to integer index
+                              final index = value.toInt();
+                              if (index < 0 || index >= timestamps.length) return Container();
+
+                              return SideTitleWidget(
+                                axisSide: meta.axisSide,
+                                child: Text(timestamps[index], style: const TextStyle(fontSize: 10)),
+                              );
+                            },
+                            reservedSize: 30,
+                          ),
+                        ),
+                      ),
+                      lineBarsData: [
+                        LineChartBarData(
+                          spots: spots,
+                          isCurved: true,
+                          barWidth: 2,
+                          color: Colors.blue,
+                        ),
+                      ],
+                      gridData: const FlGridData(show: true),
+                      borderData: FlBorderData(
+                        show: true,
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        } else {
+          return const Center(child: Text("Error fetching data."));
+        }
+      },
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import 'dart:convert';
+//
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:fl_chart/fl_chart.dart';
+// import 'package:flutter/material.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:intl/intl.dart';
+// import 'package:xau_forecaste/screens/charts_screen.dart';
+//
+// import 'firebase_options.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Future<void> uploadDataToFirestore(
 //     List<double> actualLast30Days,
@@ -34,31 +303,31 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // }
 
 
-
-Future<void> main() async {
-
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'XAU-FORECAST',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home:   MyHomePage(),
-    );
-  }
-}
+//
+// Future<void> main() async {
+//
+//   await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+//   );
+//   runApp(const MyApp());
+// }
+//
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+//
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'XAU-FORECAST',
+//       theme: ThemeData(
+//         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+//         useMaterial3: true,
+//       ),
+//       home:   MyHomePage(),
+//     );
+//   }
+// }
 
 
 
