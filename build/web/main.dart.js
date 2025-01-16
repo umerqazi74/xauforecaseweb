@@ -14375,7 +14375,7 @@ _.fr=null},
 zh:function zh(){},
 MC:function MC(){},
 akn(a,b){var s,r,q,p,o,n,m,l,k,j,i,h,g,f
-if(a==null)a=B.fO
+if(a==null)a=B.fN
 s=J.ar(a)
 r=s.gu(a)-1
 q=A.aT(0,null,!1,t.LQ)
@@ -14531,7 +14531,7 @@ q.gud()
 p.sud(q.gud())
 q.guc()
 p.suc(q.guc())
-r.jZ(B.fO,p)
+r.jZ(B.fN,p)
 r.saH(b.gaH())
 r.sbk(b.gbk())
 r.dy=b.ga8T()
@@ -33593,14 +33593,14 @@ gq(a){return A.I(null,null,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B
 k(a){return"GestureSettings(physicalTouchSlop: null, physicalDoubleTapSlop: null)"}}
 A.Qz.prototype={
 uS(a){var s,r,q
-if(A.eQ(a).gL8())return A.OA(B.fR,a,B.H,!1)
+if(A.eQ(a).gL8())return A.OA(B.fQ,a,B.H,!1)
 s=this.b
 if(s==null){s=self.window.document.querySelector("meta[name=assetBase]")
 r=s==null?null:s.content
 s=r==null
 if(!s)self.window.console.warn("The `assetBase` meta tag is now deprecated.\nUse engineInitializer.initializeEngine(config) instead.\nSee: https://docs.flutter.dev/development/platform-integration/web/initialization")
 q=this.b=s?"":r
-s=q}return A.OA(B.fR,s+"assets/"+a,B.H,!1)}}
+s=q}return A.OA(B.fQ,s+"assets/"+a,B.H,!1)}}
 A.rP.prototype={
 E(){return"BrowserEngine."+this.b}}
 A.iT.prototype={
@@ -42919,10 +42919,10 @@ r===$&&A.a()
 return A.K(Math.abs(A.K(r,0,s.c-1)-this.b),0,1)}}
 A.xo.prototype={
 gl3(){var s,r
-for(s=46,r=0;r<2;++r)s=Math.max(B.cP[r].gl3().b,s)
+for(s=46,r=0;r<2;++r)s=Math.max(B.cO[r].gl3().b,s)
 return new A.S(1/0,s+2)},
 ga7v(){var s,r
-for(s=0;s<2;++s){r=B.cP[s]
+for(s=0;s<2;++s){r=B.cO[s]
 if(r.gl3().b===72)return!0}return!1},
 ai(){return new A.A5()}}
 A.A5.prototype={
@@ -42930,7 +42930,7 @@ ap(){var s,r=this
 r.aR()
 r.a.toString
 s=t.Gz
-r.x=A.T(new A.a1(B.cP,new A.aaP(),s),!0,s.h("a2.E"))
+r.x=A.T(new A.a1(B.cO,new A.aaP(),s),!0,s.h("a2.E"))
 r.a.toString
 r.y=A.aT(2,B.at,!0,t.A0)},
 geW(){var s=null,r=this.c
@@ -43144,7 +43144,7 @@ $1(a){var s,r,q,p=this.a
 p.a.toString
 s=this.b.r
 if(s==null)s=B.jM
-r=B.cP[a]
+r=B.cO[a]
 if(r.gl3().b===46&&p.a.ga7v())s=s.C(0,B.zP)
 q=p.y
 q===$&&A.a()
@@ -43153,7 +43153,7 @@ q=p.x
 q===$&&A.a()
 q=q[a]
 p.a.toString
-return A.C1(new A.hJ(s,new A.ml(B.cP[a],q),null),1,null)},
+return A.C1(new A.hJ(s,new A.ml(B.cO[a],q),null),1,null)},
 $S:239}
 A.aaN.prototype={
 $1(a){var s,r=this.b
@@ -43197,7 +43197,7 @@ return A.N(null,r)}})
 return A.O($async$nD,r)},
 ap(){this.aR()
 this.a.toString
-this.f=A.aeE(B.fN)},
+this.f=A.aeE(B.fR)},
 b6(){var s,r,q=this
 q.d6()
 q.xS()
@@ -43303,7 +43303,7 @@ return new A.ct(p.gWW(),new A.vN(s,new A.pb(r),new A.a3S(q,A.ax([null,0],t.LO,t.
 A.aaQ.prototype={
 $0(){var s=this.a
 s.a.toString
-s.f=A.aeE(B.fN)},
+s.f=A.aeE(B.fR)},
 $S:0}
 A.aaR.prototype={
 $0(){var s,r,q,p=this.a,o=p.f
@@ -43320,7 +43320,7 @@ $S:0}
 A.aaS.prototype={
 $0(){var s=this.a
 s.a.toString
-s.f=A.aeE(B.fN)},
+s.f=A.aeE(B.fR)},
 $S:0}
 A.aaU.prototype={
 ghF(){var s,r=this,q=r.CW
@@ -51153,7 +51153,7 @@ q.y1=b.p4
 q.z=b.b
 q.y2=b.bj
 q.aj=b.aV
-q.Zo(a==null?B.fO:a)
+q.Zo(a==null?B.fN:a)
 if(s!==r)q.Ia()},
 N4(a){return this.jZ(null,a)},
 NO(){var s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a,a0,a1,a2,a3,a4,a5,a6,a7=this,a8={}
@@ -51671,7 +51671,7 @@ k(a){return"<optimized out>#"+A.bf(this)+"()"}}
 A.R9.prototype={
 mI(a,b){return this.OU(a,!0)}}
 A.a0a.prototype={
-jP(a){var s,r=B.bq.da(A.Oz(null,A.OA(B.fR,a,B.H,!1),null).e),q=$.dI.bp$
+jP(a){var s,r=B.bq.da(A.Oz(null,A.OA(B.fQ,a,B.H,!1),null).e),q=$.dI.bp$
 q===$&&A.a()
 s=q.v6("flutter/assets",A.ahI(r)).bx(new A.a0b(a),t.V4)
 return s}}
@@ -51727,11 +51727,11 @@ V3(a,b){var s,r,q,p
 if(a===b)return B.C2
 s=A.b([],t.QP)
 if(a==null)s.push(b)
-else{r=B.b.eF(B.cO,a)
-q=B.b.eF(B.cO,b)
-if(b===B.bl){for(p=r+1;p<5;++p)s.push(B.cO[p])
-s.push(B.bl)}else if(r>q)for(p=q;p<r;++p)B.b.fR(s,0,B.cO[p])
-else for(p=r+1;p<=q;++p)s.push(B.cO[p])}return s},
+else{r=B.b.eF(B.cP,a)
+q=B.b.eF(B.cP,b)
+if(b===B.bl){for(p=r+1;p<5;++p)s.push(B.cP[p])
+s.push(B.bl)}else if(r>q)for(p=q;p<r;++p)B.b.fR(s,0,B.cP[p])
+else for(p=r+1;p<=q;++p)s.push(B.cP[p])}return s},
 wC(a){return this.Vz(a)},
 Vz(a){var s=0,r=A.P(t.H),q,p=this,o
 var $async$wC=A.Q(function(b,c){if(b===1)return A.M(c,r)
@@ -62259,7 +62259,7 @@ goz(){return A.aBY()},
 X0(){if(this.x)return
 this.rm()},
 NN(){var s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d=this,c=null,b=d.c
-if(b===-1||d.d===-1||d.b.length===0)return new A.kA(c,c,B.bc,B.fP,d.b.length!==0)
+if(b===-1||d.d===-1||d.b.length===0)return new A.kA(c,c,B.bc,B.fO,d.b.length!==0)
 if(!d.as){b=d.Dy(d.d,b)
 d.d=b
 d.c=d.Dy(d.c,b)}s=d.b[d.d].gl()
@@ -68763,6 +68763,9 @@ B.Ns=new A.jr(8,0.12)
 B.Nw=new A.jr(12,0.14)
 B.k6=A.b(s([B.Nr,B.Nu,B.Nt,B.Nv,B.Ns,B.Nw]),A.W("u<jr>"))
 B.Bg=A.b(s([65533]),t.t)
+B.IM=new A.xn("Next 24 Hours",null)
+B.IL=new A.xn("Daily",null)
+B.cO=A.b(s([B.IM,B.IL]),t.E)
 B.ws=new A.nP()
 B.hu=new A.GL(1,"page")
 B.hv=new A.dU(B.E,B.hu)
@@ -68782,15 +68785,12 @@ B.Bu=A.b(s([B.f0,B.f1]),A.W("u<rD>"))
 B.Bv=A.b(s(["BC","AD"]),t.s)
 B.k9=A.b(s(["J","F","M","A","M","J","J","A","S","O","N","D"]),t.s)
 B.ka=A.b(s([0,0,26624,1023,65534,2047,65534,2047]),t.t)
-B.cO=A.b(s([B.bl,B.b4,B.dr,B.ds,B.f_]),t.QP)
+B.cP=A.b(s([B.bl,B.b4,B.dr,B.ds,B.f_]),t.QP)
 B.Cm=new A.ki("en","US")
 B.kb=A.b(s([B.Cm]),t.ss)
 B.kc=A.b(s([0,0,65490,12287,65535,34815,65534,18431]),t.t)
 B.BB=A.b(s(["1st quarter","2nd quarter","3rd quarter","4th quarter"]),t.s)
 B.kd=A.b(s(["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]),t.s)
-B.IL=new A.xn("Daily",null)
-B.IM=new A.xn("Next 24 Hours",null)
-B.cP=A.b(s([B.IL,B.IM]),t.E)
 B.BC=A.b(s(["Before Christ","Anno Domini"]),t.s)
 B.FH=new A.mD(0,"get")
 B.FI=new A.mD(1,"update")
@@ -68810,9 +68810,6 @@ B.fM=A.b(s([B.aq,B.Q]),A.W("u<nf>"))
 B.ke=A.b(s(["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]),t.s)
 B.kf=A.b(s(["January","February","March","April","May","June","July","August","September","October","November","December"]),t.s)
 B.kg=A.b(s([0,0,32776,33792,1,10240,0,0]),t.t)
-B.FY=new A.w1("daily_predictions","Daily Prediction",null)
-B.FZ=new A.w1("hourly_predictions","Next 24 Hours",null)
-B.fN=A.b(s([B.FY,B.FZ]),t.E)
 B.A8=new A.fb(0)
 B.A9=new A.fb(1)
 B.Aa=new A.fb(2)
@@ -68835,9 +68832,9 @@ B.Cc=A.b(s([]),t.tc)
 B.e_=A.b(s([]),t.jl)
 B.C_=A.b(s([]),t.fy)
 B.BZ=A.b(s([]),A.W("u<ajU<@>>"))
-B.fP=A.b(s([]),t.AO)
+B.fO=A.b(s([]),t.AO)
 B.C1=A.b(s([]),t.D1)
-B.fO=A.b(s([]),t.QF)
+B.fN=A.b(s([]),t.QF)
 B.C4=A.b(s([]),t.Xv)
 B.ki=A.b(s([]),t.s)
 B.a4=A.b(s([]),t.oU)
@@ -68883,8 +68880,11 @@ B.zx=new A.ok(0,"added")
 B.zy=new A.ok(1,"modified")
 B.zz=new A.ok(2,"removed")
 B.Cg=A.b(s([B.zx,B.zy,B.zz]),A.W("u<ok>"))
-B.fQ=A.b(s([!0,!1]),t.HZ)
-B.fR=A.b(s([0,0,65498,45055,65535,34815,65534,18431]),t.t)
+B.fP=A.b(s([!0,!1]),t.HZ)
+B.fQ=A.b(s([0,0,65498,45055,65535,34815,65534,18431]),t.t)
+B.FZ=new A.w1("hourly_predictions","Next 24 Hours",null)
+B.FY=new A.w1("daily_predictions","Daily Prediction",null)
+B.fR=A.b(s([B.FZ,B.FY]),t.E)
 B.Cl=A.b(s(["pointerdown","pointermove","pointerleave","pointerup","pointercancel","touchstart","touchend","touchmove","touchcancel","mousedown","mousemove","mouseleave","mouseup"]),t.s)
 B.k=new A.v6(0,"ignored")
 B.a5=new A.d(4294967304)
@@ -69947,8 +69947,8 @@ B.hx=new A.pz(1,"nextLine")
 B.en=new A.pz(2,"forward")
 B.eo=new A.pz(3,"backward")
 B.bc=new A.wR(2,"none")
-B.un=new A.kA(null,null,B.bc,B.fP,!1)
-B.um=new A.kA(null,null,B.bc,B.fP,!0)
+B.un=new A.kA(null,null,B.bc,B.fO,!1)
+B.um=new A.kA(null,null,B.bc,B.fO,!0)
 B.q=new A.kB(0,"next")
 B.t=new A.kB(1,"previous")
 B.v=new A.kB(2,"end")
@@ -70954,7 +70954,7 @@ s($,"aFh","apO",()=>new A.LF())
 r($,"aEX","apA",()=>{var q=A.W("~(bb<az>)")
 return A.ax([B.Mx,A.aib(!0),B.MF,A.aib(!1),B.MR,new A.Go(A.vF(q)),B.ML,new A.F5(A.vF(q)),B.MO,new A.FE(A.vF(q)),B.Mw,new A.CV(A.vF(q)),B.vv,A.avS(),B.MP,new A.FH(A.vF(q)),B.MZ,new A.I4(A.vF(q))],t.u,t.od)})
 s($,"aCF","adl",()=>{var q,p,o,n=t.r,m=A.v(t.Vz,n)
-for(q=A.W("U"),p=0;p<2;++p){o=B.fQ[p]
+for(q=A.W("U"),p=0;p<2;++p){o=B.fP[p]
 m.J(0,A.ax([A.d3(B.a5,!1,!1,!1,o),B.iK,A.d3(B.a5,!1,!0,!1,o),B.iN,A.d3(B.a5,!0,!1,!1,o),B.iL,A.d3(B.a_,!1,!1,!1,o),B.du,A.d3(B.a_,!1,!0,!1,o),B.dv,A.d3(B.a_,!0,!1,!1,o),B.iM],q,n))}m.n(0,B.ew,B.dw)
 m.n(0,B.ex,B.dx)
 m.n(0,B.es,B.cw)
@@ -71001,7 +71001,7 @@ q.n(0,B.eu,B.iU)
 q.n(0,B.ev,B.iV)
 return q})
 s($,"aCL","agQ",()=>{var q,p,o,n=t.r,m=A.v(t.Vz,n)
-for(q=A.W("U"),p=0;p<2;++p){o=B.fQ[p]
+for(q=A.W("U"),p=0;p<2;++p){o=B.fP[p]
 m.J(0,A.ax([A.d3(B.a5,!1,!1,!1,o),B.iK,A.d3(B.a5,!0,!1,!1,o),B.iN,A.d3(B.a5,!1,!1,!0,o),B.iL,A.d3(B.a_,!1,!1,!1,o),B.du,A.d3(B.a_,!0,!1,!1,o),B.dv,A.d3(B.a_,!1,!1,!0,o),B.iM],q,n))}m.n(0,B.ew,B.dw)
 m.n(0,B.ex,B.dx)
 m.n(0,B.es,B.cw)
@@ -71064,7 +71064,7 @@ q.n(0,B.Ho,B.iS)
 q.n(0,B.Hp,B.iT)
 return q})
 s($,"aCM","agR",()=>{var q,p,o,n=t.r,m=A.v(t.Vz,n)
-for(q=A.W("U"),p=0;p<2;++p){o=B.fQ[p]
+for(q=A.W("U"),p=0;p<2;++p){o=B.fP[p]
 m.J(0,A.ax([A.d3(B.a5,!1,!1,!1,o),B.m,A.d3(B.a_,!1,!1,!1,o),B.m,A.d3(B.a5,!0,!1,!1,o),B.m,A.d3(B.a_,!0,!1,!1,o),B.m,A.d3(B.a5,!1,!0,!1,o),B.m,A.d3(B.a_,!1,!0,!1,o),B.m,A.d3(B.a5,!1,!1,!0,o),B.m,A.d3(B.a_,!1,!1,!0,o),B.m],q,n))}m.J(0,B.pl)
 m.n(0,B.uX,B.m)
 m.n(0,B.v0,B.m)

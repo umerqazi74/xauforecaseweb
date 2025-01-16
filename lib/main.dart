@@ -92,15 +92,15 @@ class _PredictionHomeState extends State<PredictionHome> {
           title: const Text("XAU Predictions"),
           bottom: const TabBar(
             tabs: [
-              Tab(text: "Daily"),
               Tab(text: "Next 24 Hours"),
+              Tab(text: "Daily"),
             ],
           ),
         ),
         body: const TabBarView(
           children: [
-            PredictionTab(collection: "daily_predictions", title: "Daily Prediction"),
             PredictionTab(collection: "hourly_predictions", title: "Next 24 Hours"),
+            PredictionTab(collection: "daily_predictions", title: "Daily Prediction"),
           ],
         ),
       ),
